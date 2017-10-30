@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	
+
+	
+	<bean id="bulletin1" class="dev.paie.entite.BulletinSalaire">
+		<property name="primeExceptionnelle" value="1000"/>
+		<property name="remunerationEmploye" ref="remuneration1"></property>
+	</bean>
+	
+	<import resource="classpath:cotisations-imposables.xml"/>
+	<import resource="classpath:remuneration-employe.xml"/>
+	
+</beans>
