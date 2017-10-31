@@ -2,41 +2,57 @@ package dev.paie.service;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.paie.entite.BulletinSalaire;
 import dev.paie.entite.ResultatCalculRemuneration;
+import dev.paie.util.PaieUtils;
 
 @Service
 public class CalculerRemunerationServiceSimple implements CalculerRemunerationService {
 
+	
+	@Autowired
+	PaieUtils paieutils;
 	@Override
 	public ResultatCalculRemuneration calculer(BulletinSalaire bulletin) {
 		ResultatCalculRemuneration result = new ResultatCalculRemuneration();
 		
-		 BigDecimal salaire_base = bulletin.getRemunerationEmploye().getGrade().getNbHeuresBase().multiply(bulletin.getRemunerationEmploye().getGrade().getTauxBase());
+		 String salaire_base = paieutils.formaterBigDecimal(bulletin.getRemunerationEmploye().getGrade().getNbHeuresBase().multiply(bulletin.getRemunerationEmploye().getGrade().getTauxBase()));
 		 
-		 BigDecimal salaire_brut = salaire_base.add(bulletin.getPrimeExceptionnelle());
+		 String salaire_brut = paieutils.formaterBigDecimal(new BigDecimal(salaire_base).add(bulletin.getPrimeExceptionnelle()));
 		 
-		 BigDecimal total_retenue_salariale = bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables().stream()
+		 String total_retenue_salariale = paieutils.formaterBigDecimal(bulletin.getRemunerationEmploye()
+				 .getProfilRemuneration()
+				 .getCotisationsNonImposables().stream()
 				 .filter(cotisation -> cotisation.getTauxSalarial() != null)
-				 .map(cotisation -> cotisation.getTauxSalarial().multiply(salaire_brut))
-				 .reduce((cotisation,cotisation1)-> cotisation.add(cotisation1)).get();
+				 .map(cotisation -> cotisation.getTauxSalarial().multiply(new BigDecimal(salaire_brut)))
+				 .reduce((cotisation,cotisation1)-> cotisation.add(cotisation1))
+				 .get());
 		 
-		 BigDecimal total_cotisations_patronales = bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables().stream()
+		 
+		 
+		 String total_cotisations_patronales = paieutils.formaterBigDecimal(bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables().stream()
 				 .filter(cotisationpatro -> cotisationpatro.getTauxPatronal() != null)
-				 .map(cotisationpatro -> cotisationpatro.getTauxPatronal().multiply(salaire_brut))
-				 .reduce((cotisationpatro,cotisationpatro1)-> cotisationpatro.add(cotisationpatro1)).get();
+				 .map(cotisationpatro -> cotisationpatro.getTauxPatronal().multiply(new BigDecimal(salaire_brut)))
+				 .reduce((cotisationpatro,cotisationpatro1)-> cotisationpatro.add(cotisationpatro1)).get());
 		 
-		 BigDecimal net_imposable = salaire_brut.subtract(total_retenue_salariale);
+		 String net_imposable = paieutils.formaterBigDecimal(new BigDecimal(salaire_brut).subtract(new BigDecimal(total_retenue_salariale)));
 		 
-		 BigDecimal net_a_payer = bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsImposables().stream()
+		 String net_a_payer = paieutils.formaterBigDecimal(new BigDecimal(net_imposable).subtract(bulletin.getRemunerationEmploye()
+				 .getProfilRemuneration()
+				 .getCotisationsImposables().stream()
 				 .filter(cotisation -> cotisation.getTauxSalarial() != null)
-				 .map(cotisation -> cotisation.getTauxSalarial().multiply(salaire_brut))
-				 .reduce((cotisation,cotisation1)-> cotisation.subtract(cotisation1)).get();
+				 .map(cotisation -> cotisation.getTauxSalarial().multiply(new BigDecimal(salaire_brut)))
+				 .reduce((cotisation,cotisation1)-> cotisation.add(cotisation1)).get()));
 		 
-		 //TODO String to BigDecimal
-		 
+		 result.setSalaireDeBase(salaire_base);
+		 result.setSalaireBrut(salaire_brut);
+		 result.setTotalRetenueSalarial(total_retenue_salariale);
+		 result.setTotalCotisationsPatronales(total_cotisations_patronales);
+		 result.setNetImposable(net_imposable);
+		 result.setNetAPayer(net_a_payer);
 		 
 		 return result;
 	}
