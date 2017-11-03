@@ -52,5 +52,7 @@ public class GradeServiceJdbcTemplaceTest {
 		assertThat(nouveauGrade.getCode(), equalTo("Captain"));
 		assertThat(nouveauGrade.getNbHeuresBase(), equalTo(new BigDecimal(50)));
 		assertThat(nouveauGrade.getTauxBase(), equalTo(new BigDecimal(200)));
+		
+		gradeService.lister();
 	}
 }

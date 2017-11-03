@@ -38,8 +38,10 @@ public class GradeServiceJdbcTemplate implements GradeService {
 
 	@Override
 	public List<Grade> lister() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String sql = "SELECT * FROM grade";
+		
+		return this.jdbcTemplate.query(sql, new GradeMapper());
 	}
 
 }
