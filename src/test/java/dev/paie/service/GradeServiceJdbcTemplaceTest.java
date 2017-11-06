@@ -24,7 +24,7 @@ public class GradeServiceJdbcTemplaceTest {
 	@Test
 	public void test_sauvegarder_lister_mettre_a_jour () {
 		
-		Grade nouveauGrade = new Grade();
+		Grade nouveauGrade = new Grade(null, null, null);
 		String codePush = "GENERAL";
 		BigDecimal nbHeuresBasePush = new BigDecimal(20);
 		BigDecimal tauxBasePush = new BigDecimal(8);

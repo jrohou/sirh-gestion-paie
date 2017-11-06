@@ -25,7 +25,7 @@ public class AvantageRepositoryTest {
 	@Test
 	public void test_sauvegarder_lister_mettre_a_jour() {
 			
-		Avantage nouveauAvantage = new Avantage();
+		Avantage nouveauAvantage = new Avantage(null, null, null);
 		String codePush = "Avantage1";
 		String nomPush = "Super Avantage";
 		BigDecimal montantPush = new BigDecimal(200);

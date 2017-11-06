@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +23,15 @@ public class Avantage {
 	private String code;
 	private String nom;
 	private BigDecimal montant;
+	
+	
+
+	public Avantage(String code, String nom, BigDecimal montant) {
+		super();
+		this.code = code;
+		this.nom = nom;
+		this.montant = montant;
+	}
 
 	public String getCode() {
 		return code;
@@ -46,6 +57,7 @@ public class Avantage {
 		this.montant = montant;
 	}
 
+	
 	public Integer getId() {
 		return id;
 	}
@@ -53,4 +65,5 @@ public class Avantage {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 }

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +26,13 @@ public class Cotisation {
 	private BigDecimal tauxPatronal;
 	
 	
+	public Cotisation(String code, String libelle, BigDecimal tauxSalarial, BigDecimal tauxPatronal) {
+		super();
+		this.code = code;
+		this.libelle = libelle;
+		this.tauxSalarial = tauxSalarial;
+		this.tauxPatronal = tauxPatronal;
+	}
 	public String getCode() {
 		return code;
 	}

@@ -7,10 +7,10 @@
 	
 
 	
-	<bean id="bulletin1" class="dev.paie.entite.BulletinSalaire">
-		<property name="primeExceptionnelle" value="1000"/>
-		<property name="remunerationEmploye" ref="remuneration1"></property>
-	</bean>
+<!-- 	<bean id="bulletin1" class="dev.paie.entite.BulletinSalaire"> -->
+<!-- 		<property name="primeExceptionnelle" value="1000"/> -->
+<!-- 		<property name="remunerationEmploye" ref="remuneration1"></property> -->
+<!-- 	</bean> -->
 	
 	<import resource="classpath:cotisations-imposables.xml"/>
 	<import resource="classpath:remuneration-employe.xml"/>

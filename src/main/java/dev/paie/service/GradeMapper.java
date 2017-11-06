@@ -12,7 +12,7 @@ public class GradeMapper implements RowMapper<Grade> {
 	@Override
 	public Grade mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
-		Grade nouveauGrade = new Grade();
+		Grade nouveauGrade = new Grade(null, null, null);
 		nouveauGrade.setId(rs.getInt("id"));
 		nouveauGrade.setCode(rs.getString("code"));
 		nouveauGrade.setNbHeuresBase(rs.getBigDecimal("nbHeuresBase"));

@@ -24,7 +24,7 @@ public class CotisationServiceJpaTest {
 	@Test
 	public void test_sauvegarder_lister_mettre_a_jour() {
 		
-		Cotisation nouveauCotisation = new Cotisation();
+		Cotisation nouveauCotisation = new Cotisation(null, null, null, null);
 		String codePush = "cc";
 		String libellePush = "ARCO";
 		BigDecimal tauxSalarialPush = new BigDecimal(80);

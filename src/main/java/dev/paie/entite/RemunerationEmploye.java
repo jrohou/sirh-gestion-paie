@@ -1,16 +1,47 @@
 package dev.paie.entite;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table (name="remunerationemploye")
 public class RemunerationEmploye {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	@Column
 	private String matricule;
+	@OneToOne
+	@JoinColumn(name = "ID_ENTR")
 	private Entreprise entreprise;
+	@OneToOne
+	@JoinColumn(name = "ID_PRO_REM")
 	private ProfilRemuneration profilRemuneration;
+	@OneToOne
+	@JoinColumn(name = "ID_GRADE")
 	private Grade grade;
 	
 	public String getMatricule() {
 		return matricule;
 	}
+	
+	public RemunerationEmploye(Integer id, String matricule, Entreprise entreprise,
+			ProfilRemuneration profilRemuneration, Grade grade) {
+		super();
+		this.id = id;
+		this.matricule = matricule;
+		this.entreprise = entreprise;
+		this.profilRemuneration = profilRemuneration;
+		this.grade = grade;
+	}
+
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
 	}
