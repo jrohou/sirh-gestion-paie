@@ -33,6 +33,13 @@ public class BulletinSalaire {
 	}
 	
 	
+	
+	public BulletinSalaire() {
+		super();
+	}
+
+
+
 	public BulletinSalaire(RemunerationEmploye remunerationEmploye, Periode periode, BigDecimal primeExceptionnelle) {
 		this.remunerationEmploye = remunerationEmploye;
 		this.periode = periode;

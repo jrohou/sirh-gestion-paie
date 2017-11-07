@@ -26,6 +26,10 @@ public class Avantage {
 	
 	
 
+	public Avantage() {
+		super();
+	}
+
 	public Avantage(String code, String nom, BigDecimal montant) {
 		super();
 		this.code = code;

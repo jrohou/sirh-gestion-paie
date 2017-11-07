@@ -21,6 +21,11 @@ public class Entreprise {
 	private String urssaf;
 	private String codeNaf;
 	
+	
+	
+	public Entreprise() {
+		super();
+	}
 	public Entreprise(String siret, String denomination, String adresse, String urssaf, String codeNaf) {
 		super();
 		this.siret = siret;

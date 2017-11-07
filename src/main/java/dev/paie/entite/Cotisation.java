@@ -26,6 +26,10 @@ public class Cotisation {
 	private BigDecimal tauxPatronal;
 	
 	
+	public Cotisation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Cotisation(String code, String libelle, BigDecimal tauxSalarial, BigDecimal tauxPatronal) {
 		super();
 		this.code = code;

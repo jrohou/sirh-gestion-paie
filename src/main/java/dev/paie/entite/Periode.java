@@ -26,6 +26,13 @@ public class Periode {
 		return dateDebut;
 	}
 	
+	
+	public Periode() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public Periode(LocalDate dateDebut, LocalDate dateFin) {
 		super();
 		this.dateDebut = dateDebut;

@@ -3,64 +3,49 @@ package dev.paie.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dev.paie.entite.Cotisation;
 import dev.paie.entite.Entreprise;
 import dev.paie.entite.Grade;
 import dev.paie.entite.Periode;
 import dev.paie.entite.ProfilRemuneration;
+import dev.paie.entite.RemunerationEmploye;
 import dev.paie.repository.PeriodeRepository;
 
+@Service
 public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 
 	@Autowired
 	private PeriodeRepository emPeriode;
 	
-	@Autowired
-	private List<Entreprise> entreprise1;
-	
-	@Autowired
-	private List<Entreprise> entreprise2;
-	
-	@Autowired
-	private List<Entreprise> entreprise3;
-	
-	@Autowired
-	private List<Grade> grade1;
-	
-	@Autowired
-	private List<Grade> grade2;
-	
-	@Autowired
-	private List<Grade> grade3;
-	
-	@Autowired
-	private List<ProfilRemuneration> profilTechnicien;
-	
-	@Autowired
-	private List<ProfilRemuneration> profilCadre;
-	
-	@Autowired
-	private List<ProfilRemuneration> profilStagiaire;
-	
-	@Autowired
-	private List<Cotisation> sp01;
-	
-	@Autowired
-	private List<Cotisation> sp02;
+@PersistenceContext EntityManager em;
 	
 	@Autowired
 	private ApplicationContext context;
 	
-	Map<String,Cotisation> cotisations = context.getBeansOfType(Cotisation.class);
+	
 	
 	
 	@Override
+	@Transactional
 	public void initialiser() {
+		
+		Stream.of(Cotisation.class, Entreprise.class, Grade.class, ProfilRemuneration.class, RemunerationEmploye.class)
+		.forEach(classe -> 
+		context.getBeansOfType(classe)
+		.values()
+		.stream()
+		.forEach(object -> em.persist(object))
+				);
 		
 		List<Periode> periodes = new ArrayList<>();
 		

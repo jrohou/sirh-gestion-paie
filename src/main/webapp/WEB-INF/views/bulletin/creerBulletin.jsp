@@ -12,12 +12,17 @@
     <meta name="author" content="">
     <!-- Permet d'afficher un icône dans la barre d'adresse -->
     <!-- <link rel="shortcut icon" href="image/favicon.png"> -->
-    <title>Créer Employé</title>
+    <title>Créer Bulletin</title>
 
     <!-- css Bootstrap -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/bootstrap-theme.min.css" rel="stylesheet">
 
+    <!-- HTML5 Shim et Respond.js permet à IE8 de supporter les éléments du HTML5 -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 </head>
 
 <body>
@@ -29,50 +34,39 @@
 
 
     <div class="container">
-        <a href="../index.html"><i class="icon icon-arrow-left" aria-hidden="true" style="font-size:100px;color:black;"></i></a>
+        <a href="index.html"><i class="icon icon-arrow-left" aria-hidden="true" style="font-size:100px;color:black;"></i></a>
         <div class="text-center" style="margin-top: -8%;">
-            <h1>Ajouter un employé</h1>
+            <h1>Ajouter un bulletin</h1>
         </div>
         <form class="form-horizontal" role="form" name="form" action="lister" method="post">
             <div class="form-group">
-                <label for="inputMatricule" class="col-sm-7 control-label">Matricule</label>
+                <label for="inputPeriode" class="col-sm-7 control-label">Période</label>
                 <div class="col-sm-10">
-                    <input type="text" name="matricule" class="form-control" id="matricule">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputEntreprise" class="col-sm-7 control-label">Entreprise</label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="entreprise">
-                        <option>Veuillez choisir l'entreprise</option>
-                            <c:forEach var ="entreprise" items="${requestScope.listeEntreprise}">
-                            <option value="${entreprise.id }">${ entreprise.denomination}</option>
+                    <select class="form-control" name="periode">
+                        <option>Veuillez choisir la période</option>
+                            <c:forEach var ="periode" items="${requestScope.listePeriode}">
+                            <option value="${periode.id }">${periode.dateDebut} - ${periode.dateFin}</option>
                             </c:forEach>
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputProfil" class="col-sm-7 control-label">Profil</label>
+                <label for="inputMatricule" class="col-sm-7 control-label">Matricule</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="profil">
-                            <option>Veuillez choisir le profil</option>
-                            <c:forEach var ="profil" items="${requestScope.listeProfil}">
-                            <option value="${profil.id }">${ profil.code}</option>
+                    <select class="form-control" name="matricule">
+                        <option>Veuillez choisir la période</option>
+                            <c:forEach var ="matricule" items="${requestScope.listeEmploye}">
+                            <option value="${matricule.id }">${matricule.matricule}</option>
                             </c:forEach>
                         </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputPassword1" class="col-sm-7 control-label">Grade</label>
+                <label for="inputPrime" class="col-sm-7 control-label">Prime Exceptionnelle</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="grade">
-                            <option>Veuillez choisir le grade</option>
-                            <c:forEach var ="grade" items="${requestScope.listeGrade}">
-                            <option value="${grade.id }">${ grade.code}</option>
-                            </c:forEach>
-                        </select>
+                    <input type="text" name="prime" class="form-control" id="prime">
                 </div>
             </div>
 

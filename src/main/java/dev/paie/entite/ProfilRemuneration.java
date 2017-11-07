@@ -24,7 +24,7 @@ public class ProfilRemuneration {
 	private String code;
 
 	@ManyToMany
-	@JoinTable(name="Remu_Coti",
+	@JoinTable(name="Remu_Coti_Non_Imp",
 	joinColumns = 
 	@JoinColumn(name="ID_REMU", referencedColumnName="id"),
 	inverseJoinColumns = 
@@ -33,7 +33,7 @@ public class ProfilRemuneration {
 	private List<Cotisation> cotisationsNonImposables;
 	
 	@ManyToMany
-	@JoinTable(name="Remu_Coti",
+	@JoinTable(name="Remu_Coti_Imp",
 	joinColumns = 
 	@JoinColumn(name="ID_REMU", referencedColumnName="id"),
 	inverseJoinColumns = 
@@ -42,7 +42,7 @@ public class ProfilRemuneration {
 	private List<Cotisation> cotisationsImposables;
 	
 	@ManyToMany
-	@JoinTable(name="Remu_Coti",
+	@JoinTable(name="Remu_Avant",
 	joinColumns = 
 	@JoinColumn(name="ID_REMU", referencedColumnName="id"),
 	inverseJoinColumns = 
@@ -52,6 +52,11 @@ public class ProfilRemuneration {
 
 	
 	
+	public ProfilRemuneration() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public ProfilRemuneration(String code, List<Cotisation> cotisationsNonImposables,
 			List<Cotisation> cotisationsImposables, List<Avantage> avantages) {
 		

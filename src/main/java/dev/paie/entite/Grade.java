@@ -21,6 +21,10 @@ public class Grade {
 	private BigDecimal nbHeuresBase;
 	private BigDecimal tauxBase;
 	
+	public Grade() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Grade(String code, BigDecimal nbHeuresBase, BigDecimal tauxBase) {
 		super();
 		this.code = code;
