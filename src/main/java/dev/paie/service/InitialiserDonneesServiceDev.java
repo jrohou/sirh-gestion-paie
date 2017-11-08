@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,10 @@ import dev.paie.entite.Grade;
 import dev.paie.entite.Periode;
 import dev.paie.entite.ProfilRemuneration;
 import dev.paie.entite.RemunerationEmploye;
+import dev.paie.entite.Utilisateur;
+import dev.paie.entite.Utilisateur.ROLES;
 import dev.paie.repository.PeriodeRepository;
+import dev.paie.repository.UtilisateurRepository;
 
 @Service
 public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
@@ -32,12 +36,17 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 	@Autowired
 	private ApplicationContext context;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
-	
+	@Autowired private UtilisateurRepository emUtilisateur;
 	
 	@Override
 	@Transactional
 	public void initialiser() {
+		
+		String iciUnMotDePasse = "topSecret";
+		String IciMotDePasseHashe = this.passwordEncoder.encode(iciUnMotDePasse);
 		
 		Stream.of(Cotisation.class, Entreprise.class, Grade.class, ProfilRemuneration.class, RemunerationEmploye.class)
 		.forEach(classe -> 
@@ -46,6 +55,21 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 		.stream()
 		.forEach(object -> em.persist(object))
 				);
+		
+		Utilisateur admin = new Utilisateur();
+		admin.setNomUtilisateur("admin");
+		admin.setMotDePasse(IciMotDePasseHashe);
+		admin.setRole(ROLES.ROLE_ADMINISTRATEUR);
+		admin.setEstActif(true);
+		
+		Utilisateur lambda = new Utilisateur();
+		lambda.setNomUtilisateur("user");
+		lambda.setMotDePasse(IciMotDePasseHashe);
+		lambda.setRole(ROLES.ROLE_UTILISATEUR);
+		lambda.setEstActif(true);
+		
+		emUtilisateur.save(admin);
+		emUtilisateur.save(lambda);
 		
 		List<Periode> periodes = new ArrayList<>();
 		

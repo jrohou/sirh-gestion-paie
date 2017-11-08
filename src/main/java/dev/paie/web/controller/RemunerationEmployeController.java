@@ -3,6 +3,7 @@ package dev.paie.web.controller;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,7 @@ public class RemunerationEmployeController {
 	GradeRepository listeGrade;
 
 	@RequestMapping (method = RequestMethod.GET, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView creerEmploye() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("employes/creerEmploye");
@@ -41,6 +43,7 @@ public class RemunerationEmployeController {
 	}
 	
 	@RequestMapping (method = RequestMethod.GET, path = "/lister")
+	@Secured({"ROLE_UTILISATEUR","ROLE_ADMINISTRATEUR"})
 	public ModelAndView listerEmploye() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("employes/lister");
@@ -51,6 +54,7 @@ public class RemunerationEmployeController {
 	}
 	
 	@RequestMapping (method = RequestMethod.POST, path="/lister")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView creerEmploye (String matricule,int entreprise, int profil, int grade) {
 		ModelAndView mv = new ModelAndView();
 		RemunerationEmploye nouveauEmploye = new RemunerationEmploye();
